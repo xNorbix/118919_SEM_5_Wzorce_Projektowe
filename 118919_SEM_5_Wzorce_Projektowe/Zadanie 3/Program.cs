@@ -8,18 +8,17 @@ public class SimpleParser
         _expression = expression.Replace(" ", ""); // Usuwamy spacje
     }
 
-    // Główna metoda parsująca
     public int Parse()
     {
         if (string.IsNullOrEmpty(_expression))
-            throw new Exception("Nie wprowadzono tekstu do prasowania");
+            return 0;
 
         char[] operators = { '+', '-', '*', '/' };
         int operatorCount = _expression.Count(c => operators.Contains(c));
 
         if (operatorCount != 1)
         {
-            throw new Exception("Nieprawidłowe wyrażenie: musi być dokładnie jeden operator (+, -, *, /).");
+            return 0;
         }
 
         int operatorIndex = -1;
@@ -33,7 +32,7 @@ public class SimpleParser
 
         if (operatorIndex == -1)
         {
-            throw new Exception("Nieprawidłowe wyrażenie: brak operatora (+, -, *, /).");
+            return 0;
         }
 
         string leftStr = _expression.Substring(0, operatorIndex);
@@ -54,7 +53,7 @@ public class SimpleParser
             case '/':
                 return left / right;
             default:
-                throw new Exception($"Nieznany operator: {opChar}");
+                return 0;
         }
     }
 }
